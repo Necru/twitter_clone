@@ -10,20 +10,20 @@ class Route extends Bootstrap {
 
 		$routes['home'] = array(
 			'route' => '/',
-			'controller' => 'IndexController',
+			'controller' => 'indexController',
 			'action' => 'index'
 		);
 
 		$routes['inscreverse'] = array(
 			'route' => '/inscreverse',
-			'controller' => 'IndexController',
+			'controller' => 'indexController',
 			'action' => 'inscreverse'
 		);
 
 		$routes['registrar'] = array(
 			'route' => '/registrar',
-			'controller' => 'IndexController',
-			'action' => 'inscreverse'
+			'controller' => 'indexController',
+			'action' => 'registrar'
 		);
 
 		$routes['autenticar'] = array(
@@ -33,7 +33,7 @@ class Route extends Bootstrap {
 		);
 
 		$routes['timeline'] = array(
-			'route' => '/sair',
+			'route' => '/timeline',
 			'controller' => 'AppController',
 			'action' => 'timeline'
 		);
@@ -42,6 +42,12 @@ class Route extends Bootstrap {
 			'route' => '/sair',
 			'controller' => 'AuthController',
 			'action' => 'sair'
+		);
+
+		$routes['tweet'] = array(
+			'route' => '/tweet',
+			'controller' => 'AppController',
+			'action' => 'tweet'
 		);
 
 		$this->setRoutes($routes);
