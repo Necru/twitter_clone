@@ -5,7 +5,6 @@ namespace App\Controllers;
 //os recursos do miniframework
 use MF\Controller\Action;
 use MF\Model\Container;
-use MF\Model\Usuario;
 
 class IndexController extends Action {
 
@@ -17,11 +16,11 @@ class IndexController extends Action {
 
 	public function inscreverse() {
 
-		$this->view->Usuario = array(
-			'nome' => '',
-			'email' => '',
-			'senha' => '',
-		);
+		$this->view->usuario = array(
+				'nome' => '',
+				'email' => '',
+				'senha' => '',
+			);
 
 		$this->view->erroCadastro = false;
 
@@ -36,15 +35,16 @@ class IndexController extends Action {
 		$usuario->__set('email', $_POST['email']);
 		$usuario->__set('senha', md5($_POST['senha']));
 
-		if ($usuario->validarCadastro() && count($usuario->getUsuariosPorEmail()) == 0) {
-			
-			$usuario->salvar();
+		
+		if($usuario->validarCadastro() && count($usuario->getUsuarioPorEmail()) == 0) {
+		
+				$usuario->salvar();
 
-			$this->render('cadastro');
-			
+				$this->render('cadastro');
+
 		} else {
 
-			$this->view->Usuario = array(
+			$this->view->usuario = array(
 				'nome' => $_POST['nome'],
 				'email' => $_POST['email'],
 				'senha' => $_POST['senha'],
@@ -53,10 +53,9 @@ class IndexController extends Action {
 			$this->view->erroCadastro = true;
 
 			$this->render('inscreverse');
-		}	
-	
-	}
+		}
 
+	}
 
 }
 

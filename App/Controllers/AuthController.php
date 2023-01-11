@@ -3,41 +3,39 @@
 namespace App\Controllers;
 
 //os recursos do miniframework
-
-use BadFunctionCallException;
 use MF\Controller\Action;
 use MF\Model\Container;
-use MF\Model\Usuario;
 
 class AuthController extends Action {
 
-    public function autenticar() {
 
-        $usuario = Container::getModel('Usuario');
+	public function autenticar() {
+		
+		$usuario = Container::getModel('Usuario');
 
-        $usuario->__set('email', $_POST['email']);
-        $usuario->__set('senha', md5($_POST['senha']));
+		$usuario->__set('email', $_POST['email']);
+		$usuario->__set('senha', md5($_POST['senha']));
 
-        $usuario->autenticar();
+		$usuario->autenticar();
 
-        if($usuario->__get->__get('id') != '' && $usuario->__get('nome')) {
+		if($usuario->__get('id') != '' && $usuario->__get('nome')) {
+			
+			session_start();
 
-            session_start();
+			$_SESSION['id'] = $usuario->__get('id');
+			$_SESSION['nome'] = $usuario->__get('nome');
 
-            $_SESSION['id'] = $usuario->__get('id');
-            $_SESSION['nome'] = $usuario->__get('nome');
+			header('Location: /timeline');
 
-            header('Location: /timeline');
+		} else {
+			header('Location: /?login=erro');
+		}
 
-        } else {
-            header('location:/?login=erro');
-        }
-    }
+	}
 
-    public function sair() {
-        session_start();
-        session_destroy();
-        header('Location: /');
-    }
+	public function sair() {
+		session_start();
+		session_destroy();
+		header('Location: /');
+	}
 }
-?>
